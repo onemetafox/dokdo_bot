@@ -68,7 +68,7 @@ NEW_COMMIT_STRING = """<b>Repository: </b> <a href="{branch_url}"> {repo_name}</
 <b>User: </b>{user_name}
 <b>Branch: </b>{branch_name}
 <b>Action Time: </b> {commit_time}
-<b>Action: </b>{commit_message}"""
+<b>Action Message: </b>{commit_message}"""
 
 NEW_BETA_CAPTION = """🎉 <b>New Android Beta!</b>
 
