@@ -63,11 +63,12 @@ CAPTION = """<b>{asset_label}</b>
 <b>md5</b>: <code>{md5}</code>
 <b>sha1</b>: <code>{sha1}</code>"""
 
-NEW_COMMIT_STRING = """<p>Repository: </p><a href="{branch_url}">{repo_name}</a> <br>
-<p>Hash: </p><a href="{commit_url}">{commit_sha}</a> • <i>{n_files} files, +{commit_additions}/-{commit_deletions}</i> <br>
-<p>User: </p>{user_name}
-<p>Commit Time: </p>{commit_time}
-<P>Commit: </p>{commit_message}"""
+NEW_COMMIT_STRING = """<b>Repository: </b> <a href="{branch_url}"> {repo_name}</a>
+<b>Commit URL: </b> <a href="{commit_url}">{commit_sha}</a> • <i>{n_files} files, +{commit_additions}/-{commit_deletions}</i>
+<b>User: </b>{user_name}
+<b>Branch: </b>{branch_name}
+<b>Action Time: </b> {commit_time}
+<b>Action: </b>{commit_message}"""
 
 NEW_BETA_CAPTION = """🎉 <b>New Android Beta!</b>
 
@@ -238,12 +239,13 @@ def commits_job(bot, _):
 
                 single_commit_text = NEW_COMMIT_STRING.format(
                     branch_url='{}/tree/{}'.format(repo.html_url, branch.name),
+                    branch_name=branch.name,
+                    commit_time=commit.commit.committer.date,
+                    user_name=commit.commit.author,
                     repo_name='{}/{}'.format(repo.full_name, branch.name),
                     commit_message=escape(commit.commit.message),
                     commit_url=commit.html_url,
                     commit_sha=commit.sha[:7],
-                    commit_time=commit.commit.committer.date,
-                    user_name=commit.commit.author,
                     # use only the first 7 characters
                     # https://stackoverflow.com/questions/18134627/how-much-of-a-git-sha-is-generally-considered-necessary-to-uniquely-identify-a
                     n_files=len(commit.files),
